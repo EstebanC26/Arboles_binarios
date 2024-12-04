@@ -167,3 +167,66 @@ void leerCSV(string nombreArchivo, ArbolBinario& arbol) {
         arbol.insertar(stoi(id), name, last_name, gender[0], stoi(age), stoi(id_father), stoi(is_dead), stoi(was_king), stoi(is_king));
     }
 }
+
+void mostrarMenu() {
+    cout << "Seleccione una opcion:" << endl;
+    cout << "1. Mostrar línea de sucesion" << endl;
+    cout << "2. Asignar nuevo rey" << endl;
+    cout << "3. Cambiar datos de un nodo" << endl;
+    cout << "4. Salir" << endl;
+}
+
+int main() {
+    ArbolBinario arbol;
+    leerCSV("arbol_familiar.csv", arbol);
+
+    int opcion;
+    do {
+        mostrarMenu();
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Línea de sucesion actual:" << endl;
+                arbol.mostrarSucesion();
+                break;
+            case 2:
+                arbol.asignarNuevoRey();
+                cout << "Nuevo rey asignado." << endl;
+                break;
+            case 3: {
+                int id, age;
+                string name, last_name;
+                char gender;
+                bool is_dead, was_king, is_king;
+                cout << "Ingrese el ID del nodo a cambiar: ";
+                cin >> id;
+                cout << "Ingrese el nuevo nombre: ";
+                cin >> name;
+                cout << "Ingrese el nuevo apellido: ";
+                cin >> last_name;
+                cout << "Ingrese el nuevo genero (H/M): ";
+                cin >> gender;
+                cout << "Ingrese la nueva edad: ";
+                cin >> age;
+                cout << "¿Esta muerto? (1: sí, 0: no): ";
+                cin >> is_dead;
+                cout << "¿Fue rey? (1: sí, 0: no): ";
+                cin >> was_king;
+                cout << "¿Es rey? (1: sí, 0: no): ";
+                cin >> is_king;
+                arbol.cambiarDatos(id, name, last_name, gender, age, is_dead, was_king, is_king);
+                cout << "Datos cambiados." << endl;
+                break;
+            }
+            case 4:
+                cout << "Saliendo..." << endl;
+                break;
+            default:
+                cout << "Opcion no valida." << endl;
+                break;
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
